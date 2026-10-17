@@ -712,6 +712,7 @@
     "txHistory": "Transaction history",
     "txHistoryCount": "{count} recent transactions available",
     "refreshBalance": "Refresh balance",
+    "balanceRefreshFailed": "Couldn't refresh your balance. Please try again.",
     "copyAddress": "Copy address",
     "viewExplorer": "View explorer",
     "disconnect": "Disconnect",

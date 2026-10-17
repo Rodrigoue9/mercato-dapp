@@ -27,6 +27,7 @@ export function WalletStatusCard() {
     isConnected,
     isEmbedded,
     balances,
+    balanceError,
     txHistory,
     walletName,
     connectExternalWallet,
@@ -149,6 +150,12 @@ export function WalletStatusCard() {
           </div>
         </div>
 
+        {balanceError && (
+          <p role="alert" className="text-sm text-destructive">
+            {t('walletStatus.balanceRefreshFailed')}
+          </p>
+        )}
+
         {(() => {
           if (!txHistory || txHistory.step !== 'loaded') return null
           const history = txHistory as { data?: { records?: unknown[] } }
@@ -175,7 +182,7 @@ export function WalletStatusCard() {
           >
             {refreshing ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
-            ) : refreshDone ? (
+            ) : refreshDone && !balanceError ? (
               <CheckCircle2 className="h-3.5 w-3.5 text-success" />
             ) : (
               <RefreshCw className="h-3.5 w-3.5" />

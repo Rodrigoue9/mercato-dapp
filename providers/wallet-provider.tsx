@@ -36,6 +36,7 @@ interface WalletContextValue {
   walletInfo: { address: string; walletName: string } | null
   truncatedAddress: string | null
   balances: WalletBalanceSummary | null
+  balanceError: boolean
   txHistory: TxHistoryState | null
   canSignTransactions: boolean
   connectExternalWallet: () => Promise<void>
@@ -65,7 +66,7 @@ function toWalletInfo(wallet: ConnectedWallet | null) {
 export function WalletProvider({ children }: { children: ReactNode }) {
   const pollar = usePollarSession()
   const { wallet, persistWallet } = useWalletPersistence()
-  const { balances, txHistory, refreshBalance, clearBalances } = useWalletBalance(wallet)
+  const { balances, txHistory, balanceError, refreshBalance, clearBalances } = useWalletBalance(wallet)
   const { connectPollarWallet, clearPollarSyncRefs } = usePollarWallet()
   const { connectExternalWallet } = useExternalWallet(persistWallet)
 
@@ -108,6 +109,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       walletInfo: toWalletInfo(wallet),
       truncatedAddress: truncatePublicKey(wallet?.publicKey),
       balances,
+      balanceError,
       txHistory: txHistory ?? null,
       canSignTransactions: wallet !== null,
       connectExternalWallet,
@@ -117,6 +119,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     }),
     [
       balances,
+      balanceError,
       connectExternalWallet,
       connectPollarWallet,
       disconnect,

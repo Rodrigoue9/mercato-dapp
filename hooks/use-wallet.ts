@@ -31,6 +31,7 @@ export const useWallet = () => {
     status: mercatoWallet.status,
     isEmbedded: mercatoWallet.isEmbedded,
     balances: mercatoWallet.balances,
+    balanceError: mercatoWallet.balanceError,
     txHistory: mercatoWallet.txHistory,
     canSignTransactions: mercatoWallet.canSignTransactions,
     connectExternalWallet: mercatoWallet.connectExternalWallet,
